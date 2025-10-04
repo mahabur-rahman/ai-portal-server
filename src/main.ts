@@ -8,12 +8,15 @@ async function bootstrap() {
   // Get ConfigService instance
   const configService = app.get(ConfigService);
   
-  // Get port from environment variables
+  // Get configuration from environment variables
   const port = configService.get<number>('PORT', 5001);
   const nodeEnv = configService.get<string>('NODE_ENV', 'development');
-  const corsOrigin = configService.get<string>('CORS_ORIGIN', 'http://localhost:3000');
-  const apiPrefix = configService.get<string>('API_PREFIX', 'api');
-  const apiVersion = configService.get<string>('API_VERSION', 'v1');
+  const corsOrigin = configService.get<string>('CORS_ORIGIN', '*');
+  
+  // API configuration
+  const apiPrefix = 'api';
+  const apiVersion = 'v1';
+
   
   // Enable CORS
   app.enableCors({
@@ -30,6 +33,6 @@ async function bootstrap() {
   
   console.log(`🚀 Application is running on: http://localhost:${port}/${apiPrefix}/${apiVersion}`);
   console.log(`📝 Environment: ${nodeEnv}`);
-  console.log(`🌐 CORS Origin: ${corsOrigin}`);
+
 }
 bootstrap();
