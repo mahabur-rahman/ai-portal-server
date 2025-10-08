@@ -25,7 +25,7 @@ export class OpenaiChatController {
   }
 
   @Post('chat/stream')
-  async createStreamingChatCompletion(
+  async createStreamingChatCompletion(  
     @Body() chatCompletionDto: ChatCompletionDto,
     @Res() res: Response,
   ) {
