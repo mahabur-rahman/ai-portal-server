@@ -1,6 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty, IsString, IsOptional, IsObject } from 'class-validator';
-import GraphQLJSON from 'graphql-type-json';
+import { IsNotEmpty, IsString, IsOptional, IsEmail } from 'class-validator';
 
 @InputType()
 export class CreatePdfFormateInput {
@@ -9,18 +8,18 @@ export class CreatePdfFormateInput {
   @IsString()
   name: string;
 
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsString()
-  description?: string;
+  @Field()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
 
   @Field()
   @IsNotEmpty()
   @IsString()
-  formatType: string;
+  location: string;
 
-  @Field(() => GraphQLJSON, { nullable: true })
+  @Field({ nullable: true })
   @IsOptional()
-  @IsObject()
-  settings?: Record<string, any>;
+  @IsString()
+  description?: string;
 }

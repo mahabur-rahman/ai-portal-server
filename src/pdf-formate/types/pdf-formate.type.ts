@@ -1,5 +1,4 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import GraphQLJSON from 'graphql-type-json';
 
 @ObjectType()
 export class PdfFormateType {
@@ -9,14 +8,14 @@ export class PdfFormateType {
   @Field()
   name: string;
 
-  @Field({ nullable: true })
-  description?: string;
+  @Field()
+  email: string;
 
   @Field()
-  formatType: string;
+  location: string;
 
-  @Field(() => GraphQLJSON, { nullable: true })
-  settings?: Record<string, any>;
+  @Field({ nullable: true })
+  description?: string;
 
   @Field()
   createdAt: Date;
