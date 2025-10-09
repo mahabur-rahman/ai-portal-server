@@ -14,6 +14,7 @@ import { PdfFormateModule } from './pdf-formate/pdf-formate.module';
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath: '.env',
+            cache: true,
         }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
@@ -36,8 +37,9 @@ import { PdfFormateModule } from './pdf-formate/pdf-formate.module';
             driver: ApolloDriver,
             autoSchemaFile: true,
             sortSchema: true,
-            playground: true,
+            playground: process.env.NODE_ENV !== 'production',
             introspection: true,
+            cache: 'bounded',
         }),
         OpenaiChatModule,
         PdfFormateModule,
