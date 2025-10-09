@@ -13,7 +13,7 @@ import { PdfFormateModule } from './pdf-formate/pdf-formate.module';
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: '.env.local',
+            envFilePath: '.env',
         }),
         TypeOrmModule.forRootAsync({
             imports: [ConfigModule],
