@@ -1,5 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
+import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -17,6 +18,17 @@ async function bootstrap() {
   const apiPrefix = 'api';
   const apiVersion = 'v1';
 
+  // Enable global validation
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true,
+      },
+    }),
+  );
   
   // Enable CORS
   app.enableCors({
@@ -32,6 +44,7 @@ async function bootstrap() {
   await app.listen(port);
   
   console.log(`🚀 Application is running on: http://localhost:${port}/${apiPrefix}/${apiVersion}`);
+  console.log(`🎮 GraphQL Playground: http://localhost:${port}/graphql`);
   console.log(`📝 Environment: ${nodeEnv}`);
 
 }
