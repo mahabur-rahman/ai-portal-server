@@ -13,7 +13,7 @@ import { PdfFormateModule } from './pdf-formate/pdf-formate.module';
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
-            envFilePath: '.env',
+            envFilePath: process.env.NODE_ENV === 'production' ? '.env.prod' : '.env.local',
             cache: true,
         }),
         TypeOrmModule.forRootAsync({
@@ -27,7 +27,7 @@ import { PdfFormateModule } from './pdf-formate/pdf-formate.module';
                 password: configService.get('DB_PASSWORD'),
                 database: configService.get('DB_DATABASE'),
                 entities: [__dirname + '/**/*.entity{.ts,.js}'],
-                synchronize: true, // Set to false in production
+                synchronize: configService.get('NODE_ENV') !== 'production',
                 ssl: {
                     rejectUnauthorized: false,
                 },
