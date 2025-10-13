@@ -12,7 +12,9 @@ export class PdfFormateService {
     private readonly pdfFormateRepository: Repository<PdfFormate>,
   ) {}
 
-  async create(createPdfFormateInput: CreatePdfFormateInput): Promise<PdfFormate> {
+  async create(
+    createPdfFormateInput: CreatePdfFormateInput,
+  ): Promise<PdfFormate> {
     const pdfFormate = this.pdfFormateRepository.create(createPdfFormateInput);
     return await this.pdfFormateRepository.save(pdfFormate);
   }
@@ -24,14 +26,18 @@ export class PdfFormateService {
   }
 
   async findOne(id: string): Promise<PdfFormate> {
-    const pdfFormate = await this.pdfFormateRepository.findOne({ where: { id } });
+    const pdfFormate = await this.pdfFormateRepository.findOne({
+      where: { id },
+    });
     if (!pdfFormate) {
       throw new NotFoundException(`PdfFormate with ID ${id} not found`);
     }
     return pdfFormate;
   }
 
-  async update(updatePdfFormateInput: UpdatePdfFormateInput): Promise<PdfFormate> {
+  async update(
+    updatePdfFormateInput: UpdatePdfFormateInput,
+  ): Promise<PdfFormate> {
     const { id, ...updateData } = updatePdfFormateInput;
     const pdfFormate = await this.findOne(id);
     Object.assign(pdfFormate, updateData);

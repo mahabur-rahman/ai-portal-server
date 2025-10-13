@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Get, Query, Res } from '@nestjs/common';
+import { Controller, Post, Body, Get, Res } from '@nestjs/common';
 import type { Response } from 'express';
 import { OpenaiChatService } from './openai-chat.service';
 
@@ -20,40 +20,45 @@ export class OpenaiChatController {
   @Post('chat')
   async createChatCompletion(@Body() chatCompletionDto: ChatCompletionDto) {
     const { messages, model = 'gpt-3.5-turbo' } = chatCompletionDto;
-    
+
     return await this.openaiChatService.createChatCompletion(messages, model);
   }
 
   @Post('chat/stream')
-  async createStreamingChatCompletion(  
+  async createStreamingChatCompletion(
     @Body() chatCompletionDto: ChatCompletionDto,
     @Res() res: Response,
   ) {
     const { messages, model = 'gpt-3.5-turbo' } = chatCompletionDto;
-    
+
     res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Transfer-Encoding', 'chunked');
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
     try {
-      const stream = await this.openaiChatService.createStreamingChatCompletion(messages, model);
-      
+      const stream = await this.openaiChatService.createStreamingChatCompletion(
+        messages,
+        model,
+      );
+
       for await (const chunk of stream) {
         const content = chunk.choices[0]?.delta?.content;
         if (content) {
           res.write(content);
         }
       }
-      
+
       res.end();
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      const errorMessage =
+        error instanceof Error ? error.message : 'Unknown error';
+      res.status(500).json({ error: errorMessage });
     }
   }
 
   @Get('models')
-  async getAvailableModels() {
+  getAvailableModels() {
     return {
       models: [
         'gpt-3.5-turbo',

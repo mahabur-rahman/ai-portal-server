@@ -9,7 +9,9 @@ export class PdfFormateResolver {
   constructor(private readonly pdfFormateService: PdfFormateService) {}
 
   @Mutation(() => PdfFormateType)
-  createPdfFormate(@Args('createPdfFormateInput') createPdfFormateInput: CreatePdfFormateInput) {
+  createPdfFormate(
+    @Args('createPdfFormateInput') createPdfFormateInput: CreatePdfFormateInput,
+  ) {
     return this.pdfFormateService.create(createPdfFormateInput);
   }
 
@@ -24,7 +26,9 @@ export class PdfFormateResolver {
   }
 
   @Mutation(() => PdfFormateType)
-  updatePdfFormate(@Args('updatePdfFormateInput') updatePdfFormateInput: UpdatePdfFormateInput) {
+  updatePdfFormate(
+    @Args('updatePdfFormateInput') updatePdfFormateInput: UpdatePdfFormateInput,
+  ) {
     return this.pdfFormateService.update(updatePdfFormateInput);
   }
 
