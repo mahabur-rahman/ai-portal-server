@@ -40,10 +40,6 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/tsconfig*.json ./
 COPY --from=builder /app/src ./src
 
-# Copy environment files from builder stage (both dev and prod)
-COPY --from=builder /app/.env.local .env.local
-COPY --from=builder /app/.env.prod .env.prod
-
 # Expose port
 EXPOSE 5000
 
