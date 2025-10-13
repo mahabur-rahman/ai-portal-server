@@ -38,8 +38,8 @@ lerna-debug.log*
 # dotenv environment variable files
 .env
 # Allow .env.prod and .env.local as template files
-.env.prod
-.env.local
+!.env.prod
+!.env.local
 
 # temp directory
 .temp
