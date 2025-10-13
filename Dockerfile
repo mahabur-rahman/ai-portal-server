@@ -31,8 +31,8 @@ RUN npm ci --only=production && npm cache clean --force
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy environment file
-COPY .env.prod .env.prod
+# Copy environment file from builder stage
+COPY --from=builder /app/.env.prod .env.prod
 
 # Expose port
 EXPOSE 5000
