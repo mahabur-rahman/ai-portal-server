@@ -52,6 +52,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Verify .env.prod exists
+        run: |
+          if [ ! -f .env.prod ]; then
+            echo "❌ .env.prod file not found!"
+            echo "📋 Available files:"
+            ls -la | grep env || echo "No .env files found"
+            exit 1
+          else
+            echo "✅ .env.prod file found"
+          fi
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
