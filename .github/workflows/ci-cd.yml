@@ -109,14 +109,22 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: ${{ secrets.EC2_SSH_PORT || 22 }}
           script: |
+            # Create directory for application
+            mkdir -p /home/${{ secrets.EC2_USERNAME }}/rnd-server
+            
             # Navigate to application directory
-            cd /home/${{ secrets.EC2_USERNAME }}/rnd-server || mkdir -p /home/${{ secrets.EC2_USERNAME }}/rnd-server && cd /home/${{ secrets.EC2_USERNAME }}/rnd-server
+            cd /home/${{ secrets.EC2_USERNAME }}/rnd-server
             
             # Login to Docker Hub
             echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u annurdev --password-stdin
             
             # Pull the latest image
             docker pull ${{ env.DOCKER_IMAGE_NAME }}:latest
+            
+            # Extract .env.prod from the container to host
+            docker create --name temp-container ${{ env.DOCKER_IMAGE_NAME }}:latest
+            docker cp temp-container:/app/.env.prod /home/${{ secrets.EC2_USERNAME }}/rnd-server/.env.prod
+            docker rm temp-container
             
             # Stop and remove old container
             docker stop rnd-server || true
