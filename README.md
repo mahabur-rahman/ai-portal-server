@@ -23,7 +23,29 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+RND Server - A NestJS application with automated CI/CD pipeline for deployment to AWS EC2 via Docker Hub.
+
+**Production URL:** https://15.207.16.104/api/v1
+
+## 🚀 CI/CD Pipeline
+
+This project features a complete automated deployment pipeline:
+
+- **Push to `main` branch** → Automatically builds, tests, and deploys to production
+- **GitHub Actions** → Builds Docker image and pushes to Docker Hub
+- **AWS EC2** → Automatically pulls latest image and restarts container
+- **Zero Downtime** → Seamless deployments with health checks
+
+### Quick Setup
+
+See [CI-CD-SETUP.md](./CI-CD-SETUP.md) for complete setup instructions.
+
+**Required GitHub Secrets:**
+- `DOCKER_USERNAME` - Docker Hub username
+- `DOCKER_PASSWORD` - Docker Hub access token
+- `EC2_HOST` - EC2 instance IP (15.207.16.104)
+- `EC2_USERNAME` - SSH username (ubuntu/ec2-user)
+- `EC2_SSH_KEY` - Private SSH key content
 
 ## Project setup
 
@@ -57,18 +79,39 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Deployment
+## 🐳 Docker Deployment
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### Build Docker Image
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Build image
+docker build -t rnd-server .
+
+# Run container
+docker run -d -p 5000:5000 --env-file .env.prod --name rnd-server rnd-server
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Deploy to Production (Manual)
+
+```bash
+# SSH into EC2
+ssh -i your-key.pem ubuntu@15.207.16.104
+
+# Run deployment script
+cd ~/rnd-server
+./deploy.sh
+```
+
+## Deployment
+
+This project uses automated CI/CD with GitHub Actions. Every push to `main` triggers:
+
+1. ✅ Build and test
+2. 🐳 Docker image build and push to Docker Hub
+3. 🚀 Automatic deployment to AWS EC2
+4. ✨ Live at https://15.207.16.104/api/v1
+
+For detailed setup instructions, see [CI-CD-SETUP.md](./CI-CD-SETUP.md).
 
 ## Resources
 
