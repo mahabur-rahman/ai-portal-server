@@ -16,7 +16,7 @@ describe('AppService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return "test one!"', () => {
-    expect(service.getHello()).toBe('test one!');
+  it('should return "test two!"', () => {
+    expect(service.getHello()).toBe('test two!');
   });
 });
