@@ -8,8 +8,8 @@ dist
 build
 *.log
 
-# Environment files (exclude local, keep prod)
-.env.local
+# Environment files (keep both for Docker build)
+!.env.local
 !.env.prod
 
 # IDE
