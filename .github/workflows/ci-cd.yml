@@ -90,24 +90,26 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            # Login to Docker Hub
+            echo "🔐 Logging into Docker Hub..."
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
-            # Stop existing container
-            docker stop rnd_api || true
+            echo "🛑 Stopping existing container..."
+            docker stop rnd_api || echo "Container was not running"
 
-            # Remove existing container
-            docker rm rnd_api || true
+            echo "🗑️ Removing existing container..."
+            docker rm rnd_api || echo "Container did not exist"
 
-            # Pull latest image
+            echo "⬇️ Pulling latest image..."
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ai-portal-server:latest
 
-            # Run new container
+            echo "🚀 Starting new container..."
             docker run -d \
               --name rnd_api \
               -p 5000:5000 \
               --restart unless-stopped \
               ${{ secrets.DOCKERHUB_USERNAME }}/ai-portal-server:latest
 
-            # Show running containers
+            echo "📋 Current containers:"
             docker ps
+
+            echo "✅ Deployment completed successfully!"
