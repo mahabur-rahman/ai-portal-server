@@ -58,7 +58,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/rnd_dockerhub_server
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/rnd_dockerhub_serverr
           tags: |
             type=ref,event=branch
             type=ref,event=pr
