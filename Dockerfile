@@ -25,13 +25,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Use ARG for build-time NODE_ENV
-ARG NODE_ENV=production
-
-# Install dependencies based on NODE_ENV
-# For development, we need dev dependencies for nest CLI
-# For production, only production dependencies
-RUN if [ "$NODE_ENV" = "development" ]; then npm ci; else npm ci --only=production; fi && npm cache clean --force
+# Install only production dependencies
+RUN npm ci --only=production && npm cache clean --force
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist ./dist
@@ -43,8 +38,5 @@ COPY --from=builder /app/src ./src
 # Expose port
 EXPOSE 5000
 
-# Use environment variable for NODE_ENV (can be overridden at runtime)
-ENV NODE_ENV=production
-
-# Start the application based on NODE_ENV
-CMD ["sh", "-c", "if [ \"$NODE_ENV\" = \"development\" ]; then npm run start:dev; else npm run start:prod; fi"]
+# Start the application
+CMD ["npm", "run", "start:prod"]

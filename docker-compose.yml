@@ -5,14 +5,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: rnd-server-dev
+    container_name: rnd-server
     restart: unless-stopped
     ports:
       - '5000:5000'
-    environment:
-      - NODE_ENV=development
     env_file:
-      - .env.local
+      - .env
     networks:
       - app-network
     healthcheck:
