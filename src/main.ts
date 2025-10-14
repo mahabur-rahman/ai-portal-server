@@ -58,9 +58,9 @@ async function bootstrap() {
     console.log(`✅ Server is listening on port ${port}`);
 
     console.log(
-      `🚀 Application is running on: http://localhost:${port}/${apiPrefix}/${apiVersion}`,
+      `🚀 Application is running on PORT : http://localhost:${port}/${apiPrefix}/${apiVersion}`,
     );
-    console.log(`🎮 GraphQL Playground: http://localhost:${port}/graphql`);
+    console.log(`🎮 GraphQL Playground PORT : http://localhost:${port}/graphql`);
   } catch (error) {
     console.error('❌ Failed to start application:', error);
     process.exit(1);
