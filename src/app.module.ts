@@ -21,11 +21,11 @@ import { PdfFormateModule } from './pdf-formate/pdf-formate.module';
       useFactory: (configService: ConfigService) => {
         const dbConfig = {
           type: 'postgres' as const,
-          host: configService.get('DB_HOST'),
-          port: configService.get('DB_PORT'),
-          username: configService.get('DB_USERNAME'),
-          password: configService.get('DB_PASSWORD'),
-          database: configService.get('DB_DATABASE'),
+          host: configService.get<string>('DB_HOST') || 'localhost',
+          port: configService.get<number>('DB_PORT') || 5432,
+          username: configService.get<string>('DB_USERNAME') || 'postgres',
+          password: configService.get<string>('DB_PASSWORD') || '',
+          database: configService.get<string>('DB_DATABASE') || 'postgres',
           entities: [__dirname + '/**/*.entity{.ts,.js}'],
           synchronize: false,
           ssl: {
@@ -34,13 +34,13 @@ import { PdfFormateModule } from './pdf-formate/pdf-formate.module';
         };
 
         // Also try using DATABASE_URL if individual config fails
-        const databaseUrl = configService.get('DATABASE_URL');
+        const databaseUrl = configService.get<string>('DATABASE_URL');
 
         console.log('🔍 Database config:', {
-          host: configService.get('DB_HOST'),
-          port: configService.get('DB_PORT'),
-          database: configService.get('DB_DATABASE'),
-          hasUrl: !!databaseUrl
+          host: configService.get<string>('DB_HOST') || 'localhost',
+          port: configService.get<number>('DB_PORT') || 5432,
+          database: configService.get<string>('DB_DATABASE') || 'postgres',
+          hasUrl: !!databaseUrl,
         });
 
         if (databaseUrl) {

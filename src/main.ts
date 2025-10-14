@@ -43,7 +43,7 @@ async function bootstrap() {
         'apollo-require-preflight',
         'X-Requested-With',
         'Accept',
-        'Origin'
+        'Origin',
       ],
       credentials: true,
     });
