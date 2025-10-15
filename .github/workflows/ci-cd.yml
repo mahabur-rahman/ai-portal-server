@@ -104,12 +104,12 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/ai-portal-server:latest
 
             echo "🚀 Starting new container with environment configuration..."
-            # ⚡ Change made here: Use --env-file to load your .env for database connection
+            # ⚡ Here we load environment variables from .env for PostgreSQL, JWT, etc.
             docker run -d \
               --name rnd-server \
               -p 5000:5000 \
               --restart unless-stopped \
-              --env-file /home/ec2-user/.env \   # <--- This line is NEW
+              --env-file /home/ec2-user/.env \
               ${{ secrets.DOCKERHUB_USERNAME }}/ai-portal-server:latest
 
             echo "⏳ Waiting for application to start..."
@@ -121,6 +121,9 @@ jobs:
             else
               echo "⚠️ Application may still be starting up..."
             fi
+
+            echo "📜 Docker logs (for debugging):"
+            docker logs rnd-server || echo "⚠️ No logs available yet"
 
             echo "📋 Current containers:"
             docker ps
