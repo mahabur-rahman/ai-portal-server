@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "test two!"', () => {
-      expect(appController.getHello()).toBe('test_with_ci_cd');
+    it('should return "api_is_running"', () => {
+      expect(appController.getHello()).toBe('api_is_running');
     });
   });
 });
