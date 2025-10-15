@@ -16,7 +16,7 @@ describe('AppService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return "api_is_running"', () => {
-    expect(service.getHello()).toBe('api_is_running');
+  it('should return "testing"', () => {
+    expect(service.getHello()).toBe('testing');
   });
 });

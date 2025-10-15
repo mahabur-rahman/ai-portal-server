@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "api_is_running"', () => {
-      expect(appController.getHello()).toBe('api_is_running');
+    it('should return "testing"', () => {
+      expect(appController.getHello()).toBe('testing');
     });
   });
 });
