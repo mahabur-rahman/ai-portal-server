@@ -16,7 +16,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "test two!"', () => {
-      expect(appController.getHello()).toBe('test two!');
+      expect(appController.getHello()).toBe('test_with_ci_cd');
     });
   });
 });

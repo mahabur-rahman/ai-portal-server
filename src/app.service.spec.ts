@@ -17,6 +17,6 @@ describe('AppService', () => {
   });
 
   it('should return "test two!"', () => {
-    expect(service.getHello()).toBe('test two!');
+    expect(service.getHello()).toBe('test_with_ci_cd');
   });
 });
