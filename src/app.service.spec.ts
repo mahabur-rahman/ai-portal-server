@@ -16,7 +16,7 @@ describe('AppService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return "duckdns"', () => {
-    expect(service.getHello()).toBe('duckdns');
+  it('should return "duckdns_api_running"', () => {
+    expect(service.getHello()).toBe('duckdns_api_running');
   });
 });
