@@ -16,7 +16,7 @@ describe('AppService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return "duckdns_updated"', () => {
-    expect(service.getHello()).toBe('duckdns_updated');
+  it('should return "mahabur"', () => {
+    expect(service.getHello()).toBe('mahabur');
   });
 });

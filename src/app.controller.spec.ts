@@ -15,8 +15,8 @@ describe('AppController', () => {
   });
 
   describe('root', () => {
-    it('should return "duckdns_updated"', () => {
-      expect(appController.getHello()).toBe('duckdns_updated');
+    it('should return "mahabur"', () => {
+      expect(appController.getHello()).toBe('mahabur');
     });
   });
 });
