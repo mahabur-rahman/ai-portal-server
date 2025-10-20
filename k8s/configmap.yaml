@@ -3,6 +3,11 @@ kind: ConfigMap
 metadata:
   name: rnd-server-config
 data:
+  # From .env and project defaults
+  PORT: "5000"
+  CORS_ORIGIN: "*"
+  DB_HOST: "aws-1-us-east-1.pooler.supabase.com"
+  DB_PORT: "5432"
+  DB_USERNAME: "postgres.vpbvtfyzgwwxrlfaktrx"
+  DB_DATABASE: "postgres"
   NODE_ENV: "production"
-  # Add other non-sensitive vars from .env here, e.g., PORT or DB URLs (without secrets)
-  PORT: "3000"

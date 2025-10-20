@@ -16,16 +16,34 @@ spec:
     spec:
       containers:
       - name: rnd-server
-        image: your-registry/rnd-server:latest  # Replace with your actual image URL
+        image: annurdev/kub-nest-app:latest
         ports:
-        - containerPort: 3000  # Assuming from NestJS default; check .env or Dockerfile
+        - containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /api/v1
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/v1
+            port: 5000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
         envFrom:
         - configMapRef:
             name: rnd-server-config
+        - secretRef:
+            name: rnd-server-secret
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
             memory: "256Mi"
-            cpu: "500m"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
