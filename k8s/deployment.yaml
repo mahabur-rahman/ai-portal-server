@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rnd-server-deployment
+  labels:
+    app: rnd-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: rnd-server
+  template:
+    metadata:
+      labels:
+        app: rnd-server
+    spec:
+      containers:
+      - name: rnd-server
+        image: your-registry/rnd-server:latest  # Replace with your actual image URL
+        ports:
+        - containerPort: 3000  # Assuming from NestJS default; check .env or Dockerfile
+        envFrom:
+        - configMapRef:
+            name: rnd-server-config
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"

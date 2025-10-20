@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rnd-server-config
+data:
+  NODE_ENV: "production"
+  # Add other non-sensitive vars from .env here, e.g., PORT or DB URLs (without secrets)
+  PORT: "3000"
