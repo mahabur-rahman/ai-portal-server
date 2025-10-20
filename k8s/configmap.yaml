@@ -10,4 +10,3 @@ data:
   DB_PORT: "5432"
   DB_USERNAME: "postgres.vpbvtfyzgwwxrlfaktrx"
   DB_DATABASE: "postgres"
-  NODE_ENV: "production"
