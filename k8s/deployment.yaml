@@ -19,6 +19,11 @@ spec:
         image: annurdev/kub-nest-app:latest
         ports:
         - containerPort: 5000
+        envFrom:
+        - configMapRef:
+            name: rnd-server-config
+        - secretRef:
+            name: rnd-server-secret
         livenessProbe:
           httpGet:
             path: /api/v1
