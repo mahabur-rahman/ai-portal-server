@@ -31,9 +31,8 @@ Thumbs.db
 coverage
 .nyc_output
 
-# Misc
-*.md
-!README.md
-.prettierrc
-.eslintrc.js
-eslint.config.mjs
+# Kubernetes configurations and deployment scripts
+k8s/
+*.sh
+deploy-to-eks.sh
+push-to-dockerhub.sh

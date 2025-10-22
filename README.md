@@ -99,8 +99,54 @@ ssh -i your-key.pem ubuntu@15.207.16.104
 
 # Run deployment script
 cd ~/rnd-server
-./deploy.sh
+## ☸️ Kubernetes (EKS) Deployment
+
+Deploy to AWS EKS with a complete Kubernetes setup.
+
+### Build and Push Docker Image
+
+```bash
+# Build image for your repository
+docker build -t annurdev/kub-nest-app:latest .
+
+# Push to Docker Hub
+docker push annurdev/kub-nest-app:latest
 ```
+
+### Deploy to EKS
+
+1. **Configure kubectl for your EKS cluster:**
+```bash
+aws eks update-kubeconfig --region us-east-1 --name your-cluster-name
+```
+
+2. **Deploy all manifests:**
+```bash
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/secret.yaml
+kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/deployment.yaml
+kubectl apply -f k8s/service.yaml
+kubectl apply -f k8s/ingress.yaml
+```
+
+3. **Get your LoadBalancer URL:**
+```bash
+kubectl get ingress -n rnd-server
+```
+
+**Access your application:**
+- API: `http://<LOAD_BALANCER_URL>/api/v1`
+- GraphQL Playground: `http://<LOAD_BALANCER_URL>/graphql`
+
+### Kubernetes Files
+
+- `k8s/namespace.yaml` - Application namespace
+- `k8s/secret.yaml` - Sensitive data (API keys, DB credentials)
+- `k8s/configmap.yaml` - Non-sensitive configuration
+- `k8s/deployment.yaml` - Application deployment with 2 replicas
+- `k8s/service.yaml` - LoadBalancer service
+- `k8s/ingress.yaml` - AWS ALB ingress for routing
 
 ## Deployment
 
