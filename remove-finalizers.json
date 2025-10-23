@@ -1,0 +1,8 @@
+{
+  "metadata": {
+    "name": "rnd-server"
+  },
+  "spec": {
+    "finalizers": []
+  }
+}
