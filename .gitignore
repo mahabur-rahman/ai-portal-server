@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-# compiled output
-/dist
-/node_modules
-/build
-=======
 # Compiled output
 /dist
 /build
 node_modules
->>>>>>> eb695fb (sd)
 
 # Logs
 logs
@@ -61,8 +54,9 @@ jspm_packages/
 .env
 .env.local
 .env.prod
-.env.*          # ignore any other env files
-!.env.example   # allow example env file
+k8s/*.yaml
+*secret*.yaml
+*config*.yaml
 
 # Local development files
 .temp
