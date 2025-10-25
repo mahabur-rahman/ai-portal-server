@@ -51,12 +51,11 @@ jspm_packages/
 .yarn-integrity
 
 # dotenv environment variable files
+k8s/*secret*.yaml
+k8s/*config*.yaml
 .env
 .env.local
 .env.prod
-k8s/*.yaml
-*secret*.yaml
-*config*.yaml
 
 # Local development files
 .temp
