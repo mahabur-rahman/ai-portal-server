@@ -2,11 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nestjs-deployment
-  namespace: default
   labels:
     app: nestjs-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: nestjs-app
@@ -18,9 +17,15 @@ spec:
       containers:
         - name: nestjs-app
           image: annurdev/kub-dep-app:latest
-          imagePullPolicy: Always
           ports:
             - containerPort: 5000
+          resources:
+            requests:
+              memory: "32Mi"
+              cpu: "50m"
+            limits:
+              memory: "64Mi"
+              cpu: "100m"
           envFrom:
             - configMapRef:
                 name: nestjs-config
